@@ -1,4 +1,4 @@
-//import MovingDirection from "./MovingDirection.js";
+import MovingDirection from "./MovingDirection.js";
 
 export default class Pacman {
   constructor(x, y, tileSize, velocity, tileMap) {
@@ -7,6 +7,10 @@ export default class Pacman {
     this.tileSize = tileSize;
     this.velocity = velocity;
     this.tileMap = tileMap;
+
+    this.currentMovingDirection = null;
+    this.requestMovingDirection = null;
+
     this.#loadPacmanImages();
   }
 
