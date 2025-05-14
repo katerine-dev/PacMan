@@ -39,13 +39,13 @@ export default class TileMap {
         }
 
         //marcação de grids
-        //ctx.strokeStyle = "yellow";
-        //ctx.strokeRect(
-        //column * this.tileSize,
-        //row * this.tileSize,
-        //this.tileSize,
-        //this.tileSize
-        //);
+        ctx.strokeStyle = "yellow";
+        ctx.strokeRect(
+        column * this.tileSize,
+        row * this.tileSize,
+        this.tileSize,
+        this.tileSize
+        );
       }
     }
   }
