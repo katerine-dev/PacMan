@@ -78,12 +78,28 @@ export default class Pacman {
   #move(){
     if(this.currentMovingDirection !== this.requestMovingDirection){
       if(
+        // TODO: incluir uma explicação mais completa do funcionamento do movimento
         Number.isInteger(this.x /this.tileSize) &&
         Number.isInteger(this.y /this.tileSize)
         ) {
+          if(!this.tileMap.didCollideWithEnvironment(
+            this.x, 
+            this.y, 
+            this.requestMovingDirection
+          ))
           this.currentMovingDirection = this.requestMovingDirection;
         }
       }
+
+      if(
+        this.tileMap.didCollideWithEnvironment(
+        this.x, 
+        this.y, 
+        this.currentMovingDirection
+      )
+    ){
+      return;
+    }
       switch (this.currentMovingDirection) {
         case MovingDirection.up:
           this.y -= this.velocity;
