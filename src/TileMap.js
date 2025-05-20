@@ -41,13 +41,13 @@ export default class TileMap {
         }
 
         //marcação de grids
-        ctx.strokeStyle = "yellow";
-        ctx.strokeRect(
-        column * this.tileSize,
-        row * this.tileSize,
-        this.tileSize,
-        this.tileSize
-        );
+        //ctx.strokeStyle = "yellow";
+        //ctx.strokeRect(
+        //  column * this.tileSize,
+        //  row * this.tileSize,
+        //  this.tileSize,
+        //  this.tileSize
+        //);
       }
     }
   }
@@ -95,16 +95,21 @@ export default class TileMap {
     canvas.height = this.map.length * this.tileSize;
   }
 
-  didCollideWithEnvironment(x, y, direction){
-    if(Number.isInteger(x / this.tileSize) &&
+  didCollideWithEnvironment(x, y, direction) {
+    if (direction == null) {
+      return;
+    }
+
+    if (
+      Number.isInteger(x / this.tileSize) &&
       Number.isInteger(y / this.tileSize)
-    ){
+    ) {
       let column = 0;
       let row = 0;
       let nextColumn = 0;
       let nextRow = 0;
 
-      switch(direction){
+      switch (direction) {
         case MovingDirection.right:
           nextColumn = x + this.tileSize;
           column = nextColumn / this.tileSize;
@@ -114,20 +119,20 @@ export default class TileMap {
           nextColumn = x - this.tileSize;
           column = nextColumn / this.tileSize;
           row = y / this.tileSize;
-          break;  
+          break;
         case MovingDirection.up:
           nextRow = y - this.tileSize;
           row = nextRow / this.tileSize;
           column = x / this.tileSize;
-          break;  
+          break;
         case MovingDirection.down:
           nextRow = y + this.tileSize;
           row = nextRow / this.tileSize;
           column = x / this.tileSize;
-          break;   
+          break;
       }
       const tile = this.map[row][column];
-      if (tile === 1){
+      if (tile === 1) {
         return true;
       }
     }
