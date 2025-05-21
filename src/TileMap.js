@@ -103,20 +103,20 @@ export default class TileMap {
     }
   }
 
-  getEnemies(velocity){
+  getEnemies(velocity) {
     const enemies = [];
 
-    for(let row = 0; row < this.map.length; row++){
-      for(let column = 0; column < this.map[row].length; column++){
+    for (let row = 0; row < this.map.length; row++) {
+      for (let column = 0; column < this.map[row].length; column++) {
         const tile = this.map[row][column];
-        if(tile == 6){
+        if (tile == 6) {
           this.map[row][column] = 0;
           enemies.push(
             new Enemy(
-              column * this.tileSize, 
+              column * this.tileSize,
               row * this.tileSize,
-              this.tileSize, 
-              velocity, 
+              this.tileSize,
+              velocity,
               this
             )
           );

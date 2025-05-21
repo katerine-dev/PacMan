@@ -16,6 +16,7 @@ export default class Enemy{
         );
 
         this.directionTimerDefault = this.#random(10, 50);
+        this.directionTimer = this.directionTimerDefault;
     }
 
     draw(ctx){
@@ -24,28 +25,57 @@ export default class Enemy{
         ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
     }
 
+    #changeDirection() {
+        this.directionTimer--;
+        let newMoveDirection = null;
+        if (this.directionTimer == 0) {
+        this.directionTimer = this.directionTimerDefault;
+        newMoveDirection = Math.floor(
+            Math.random() * Object.keys(MovingDirection).length
+        );
+        }
+
+        if (newMoveDirection != null && this.movingDirection != newMoveDirection) {
+        if (
+            Number.isInteger(this.x / this.tileSize) &&
+            Number.isInteger(this.y / this.tileSize)
+        ) {
+            if (
+            !this.tileMap.didCollideWithEnvironment(
+                this.x,
+                this.y,
+                newMoveDirection
+            )
+            ) {
+            this.movingDirection = newMoveDirection;
+            }
+        }
+        }
+    }
+
     #move(){
-        if(!this.tileMap.didCollideWithEnvironment(
+        if(
+            !this.tileMap.didCollideWithEnvironment(
             this.x, 
             this.y, 
             this.movingDirection
         )
     ) {
-        switch(this.movingDirection){
-            case MovingDirection.up:
-                this.y -= this.velocity;
-                break;
-            case MovingDirection.down:
-                this.y += this.velocity;
-                break;
+            switch(this.movingDirection){
+                case MovingDirection.up:
+                    this.y -= this.velocity;
+                    break;
+                case MovingDirection.down:
+                    this.y += this.velocity;
+                    break;
 
-            case MovingDirection.left:
-                this.x -= this.velocity;
-                break;
-            case MovingDirection.right:
-                this.x += this.velocity;
-                break;
-        }
+                case MovingDirection.left:
+                    this.x -= this.velocity;
+                    break;
+                case MovingDirection.right:
+                    this.x += this.velocity;
+                    break;
+            }
         }
     }
 
