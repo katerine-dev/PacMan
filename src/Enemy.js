@@ -19,9 +19,12 @@ export default class Enemy{
         this.directionTimer = this.directionTimerDefault;
     }
 
-    draw(ctx){
+    draw(ctx, pause){
+        if(!pause){
         this.#move();
         this.#changeDirection();
+        }
+
         ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
     }
 
