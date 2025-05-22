@@ -1,21 +1,136 @@
-#gameCanvas{
+#gameCanvas {
+    margin-top: 20px;
     box-shadow: 10px 10px 20px black;
+    border: 5px solid #000;
+    background-color: black;
 }
 
-h1{
+h1 {
+    font-family: 'PacFont', 'Press Start 2P', 'Comic Sans MS', cursive;
     text-align: center;
-    font-family: comic sans MS;
-    color: lightgrey;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    font-size: 45px;
 }
 
-body{
+h1 .man {
+    display: block;
+    font-size: 34px;
+    margin-top: 10px;
+}
+
+body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     overflow: hidden;
     height: 100vh;
-    background: linear-gradient(
-        0deg,
-        rgb(17, 51, 161) 0%, 
-        rgb(34, 195, 96) 100%
-    );
+    padding: 20px;
+    background-image: url('../images/abstract_pixel_design_background_2104.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: overlay;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'PacFont';
+    src: url('fonts/Pac-Font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+footer {
+    display: flex;
+    padding: 10px 30px;
+    font-size: 12px;
+    color: white;
+}
+
+.footer-text a {
+    color: #d7dc1c;
+    text-decoration: none;
+    margin-right: 10px;
+    margin-bottom: 1px;
+}
+
+.footer-text a:last-child {
+    margin-right: 0;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}
+
+header {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+}
+
+.btn {
+    padding: 1.1em 2em;
+    background: none;
+    border: 2px solid #fff;
+    font-size: 10px;
+    color: #131313;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    border-radius: 12px;
+    background-color: #ecd448;
+    font-weight: bolder;
+    box-shadow: 0 2px 0 2px #000;
+}
+
+    .btn:before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 120%;
+    background-color: #890015;
+    top: 50%;
+    transform: skewX(30deg) translate(-150%, -50%);
+    transition: all 0.5s;
+    }
+
+    .btn:hover {
+    background-color: #1717a4;
+    color: #fff;
+    box-shadow: 0 2px 0 2px #1edc1c;
+    }
+
+    .btn:hover::before {
+    transform: skewX(30deg) translate(150%, -50%);
+    transition-delay: 0.1s;
+    }
+
+    .btn:active {
+    transform: scale(0.9);
+    }
+
+    .learn-btn {
+    position: absolute; 
+    top: 20px;
+    right: 20px; 
+}
+
+.footer-image {
+  padding: 0 20px;
 }

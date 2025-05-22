@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pac-man</title>
+    <title>PAC-PAC MAN</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/pacman.css">
 </head>
 <body>
-    <div>
-        <h1>Pac-Man</h1>
+    <header>
+        <h1>PAC-PAC<br><span class="man">MAN</span></h1>
+        <button class="btn learn-btn"> Aprenda aqui
+        </button>
+    </header>
+
+    <main>
         <canvas id="gameCanvas"></canvas>
-    </div>
-    <script src='src/Game.js' type="module"></script>
+    </main>
+    <img src="./images/grupoGhost.png" alt="Pacman Banner" class="footer-image">
+
+    <footer>
+
+        <div class="footer-text">
+        Feito com amor por 
+        <a href="https://github.com/nathalietaylor" target="_blank">Nath</a>e
+        <a href="https://github.com/katerine-dev" target="_blank">Kate</a> ❤️ | &copy; 2024
+    </footer>
+
+    <script src="src/Game.js" type="module"></script>
 </body>
 </html>
