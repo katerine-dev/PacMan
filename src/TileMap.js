@@ -16,8 +16,8 @@ export default class TileMap {
     this.wall.src = "/images/wall.png";
 
     this.powerDot = this.pinkDot;
-    this.powerDotAnmationTimerDefault = 15;
-    this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+    this.powerDotAnimationTimerDefault = 15;
+    this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
   }
 
   // TODO: incluir uma explicação mais completa do funcionamento dos blocos
@@ -34,7 +34,7 @@ export default class TileMap {
     [1, 7, 0, 4, 0, 0, 0, 0, 0, 0, 0, 7, 1],
     [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1],
     [1, 0, 1, 6, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, , 1, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 7, 1, 1, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -201,6 +201,19 @@ export default class TileMap {
     const column = x / this.tileSize;
     if (Number.isInteger(row) && Number.isInteger(column)) {
       if (this.map[row][column] === 0) {
+        this.map[row][column] = 5;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  eatPowerDot(x, y) {
+    const row = y / this.tileSize;
+    const column = x / this.tileSize;
+    if (Number.isInteger(row) && Number.isInteger(column)) {
+      const tile = this.map[row][column];
+      if (tile === 7) {
         this.map[row][column] = 5;
         return true;
       }
