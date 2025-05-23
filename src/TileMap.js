@@ -79,9 +79,9 @@ export default class TileMap {
     );
   }
   #drawPowerDot(ctx, column, row, size) {
-    this.powerDotAnmationTimer--;
-    if (this.powerDotAnmationTimer === 0) {
-      this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+    this.powerDotAnimationTimer--;
+    if (this.powerDotAnimationTimer === 0) {
+      this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
       if (this.powerDot == this.pinkDot) {
         this.powerDot = this.yellowDot;
       } else {

@@ -204,7 +204,7 @@ export default class Pacman {
 
       this.timers.push(powerDotTimer);
 
-      let powerDotAboutToExpire = setTimeout(() => {
+      let powerDotAboutToExpireTimer = setTimeout(() => {
         this.powerDotAboutToExpire = true;
       }, 1000 * 3);
 
