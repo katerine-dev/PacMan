@@ -1,5 +1,5 @@
 import Pacman from "./PacMan.js";
-import Enemy from "./Enemy.js"
+import Enemy from "./Enemy.js";
 import MovingDirection from "./MovingDirection.js";
 
 export default class TileMap {
@@ -9,25 +9,32 @@ export default class TileMap {
     this.yellowDot = new Image();
     this.yellowDot.src = "/images/yellowDot.png";
 
+    this.pinkDot = new Image();
+    this.pinkDot.src = "images/pinkDot.png";
+
     this.wall = new Image();
     this.wall.src = "/images/wall.png";
+
+    this.powerDot = this.pinkDot;
+    this.powerDotAnmationTimerDefault = 15;
+    this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
   }
 
   // TODO: incluir uma explicação mais completa do funcionamento dos blocos
 
-  // 1- parede; 
-  // 0 - pontos; 
-  // 4 - pacman; 
+  // 1- parede;
+  // 0 - pontos;
+  // 4 - pacman;
   // 5 - vazio;
   // 6 - fantasma;
-
+  // 7 - power dot
 
   map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 7, 0, 4, 0, 0, 0, 0, 0, 0, 0, 7, 1],
     [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1],
     [1, 0, 1, 6, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, , 1, 1, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -44,6 +51,8 @@ export default class TileMap {
           this.#drawWall(ctx, column, row, this.tileSize);
         } else if (tile === 0) {
           this.#drawDot(ctx, column, row, this.tileSize);
+        } else if (tile == 7) {
+          this.#drawPowerDot(ctx, column, row, this.tileSize);
         } else {
           this.#drawBlank(ctx, column, row, this.tileSize);
         }
@@ -68,6 +77,18 @@ export default class TileMap {
       size,
       size
     );
+  }
+  #drawPowerDot(ctx, column, row, size) {
+    this.powerDotAnmationTimer--;
+    if (this.powerDotAnmationTimer === 0) {
+      this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+      if (this.powerDot == this.pinkDot) {
+        this.powerDot = this.yellowDot;
+      } else {
+        this.powerDot = this.pinkDot;
+      }
+    }
+    ctx.drawImage(this.powerDot, column * size, row * size, size, size);
   }
 
   #drawWall(ctx, column, row, size) {
