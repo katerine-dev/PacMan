@@ -36,9 +36,11 @@ export default class Pacman {
     up: 3,
   };
 
-  draw(ctx) {
+  draw(ctx, pause) {
+    if (!pause){
     this.#move();
     this.#animate();
+    }
     this.#eatDot();
     this.#eatPowerDot();
     const size = this.tileSize / 2; // localiza o centro da imagem
@@ -54,14 +56,6 @@ export default class Pacman {
       this.tileSize
     );
     ctx.restore(); //para retornar canva à rotação original
-
-    // ctx.drawImage(
-    //   this.pacmanImages[this.pacmanImageIndex],
-    //   this.x,
-    //   this.y,
-    //   this.tileSize,
-    //   this.tileSize
-    // );
   }
 
   #loadPacmanImages() {
