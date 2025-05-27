@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Aprenda - Matemática no Pac-Man</title>
+    <link rel="stylesheet" href="styles/aprenda.css">
+
+</head>
+<body>
+
+    <h1>Como funciona o Pac-Man?</h1>
+
+    <div class="section">
+        <h2>1. Movimento na Grade (Matriz)</h2>
+        <p>O Pac-Man se movimenta em uma <strong>grade 2D</strong>, como uma matriz de linhas e colunas. Cada posição pode ser representada como <code>[linha, coluna]</code>.</p>
+        <div class="grid" id="grid"></div>
+        <p>Posição atual: <span id="position">[0,0]</span></p>
+        <div>
+        <button onclick="move(-1, 0)">↑</button>
+        <button onclick="move(1, 0)">↓</button>
+        <button onclick="move(0, -1)">←</button>
+        <button onclick="move(0, 1)">→</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Detecção de Colisões</h2>
+        <p>
+        O conceito de colisão no Pac-Man é baseado na <strong>análise da célula vizinha</strong> na matriz.
+        <br>
+        Cada célula pode conter:
+        <ul>
+            <li><strong>0:</strong> espaço livre (pode mover).</li>
+            <li><strong>1:</strong> parede (não pode mover).</li>
+        </ul>
+        O movimento só é permitido se a célula de destino for livre. 
+        Se for uma parede ou estiver fora dos limites da matriz, ocorre uma <strong>colisão</strong>.
+        </p>
+        <p>Movimento: <span id="moveStatus">-</span></p>
+    </div>
+
+    <div class="section">
+        <h2>3. Aleatoriedade do Fantasma</h2>
+        <p>
+        Os fantasmas podem se mover de forma <strong>aleatória</strong> pela matriz, usando funções de geração de números aleatórios.
+        </p>
+        <button onclick="moveGhost()">Mover Fantasma</button>
+        <p>Fantasma na posição: <span id="ghostPos">[2,2]</span></p>
+    </div>
+
+    <a href="index.html"><button>Voltar ao Jogo</button></a>
+<script src="src/Aprenda.js" ></script>
+</body>
+</html>

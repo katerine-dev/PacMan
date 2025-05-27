@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
+    margin: 20px 0;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background-color: #222;
+    border: 1px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: outline 0.3s;
+}
+
+.pacman {
+    background-color: yellow;
+}
+
+.wall {
+    background-color: gray;
+}
+
+.ghost {
+    background-color: red;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    background: #FFD700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
