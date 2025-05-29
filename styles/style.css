@@ -57,15 +57,16 @@ header h1 {
 
 footer {
     display: flex;
-    padding: 10px 30px;
+    padding: 190px 30px;
     font-size: 12px;
     color: white;
 }
 
 .footer-text a {
+    
     color: #d7dc1c;
     text-decoration: none;
-    margin-right: 10px;
+    margin-right: 8px;
     margin-bottom: 1px;
 }
 
@@ -132,5 +133,5 @@ header {
 }
 
 .footer-image {
-  padding: 0 20px;
+    padding: 0 20px;
 }
