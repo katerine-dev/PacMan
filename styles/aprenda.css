@@ -1,56 +1,89 @@
+/* styles/aprenda.css */
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #000;
-    color: #fff;
+    background: #111;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 30px;
+    margin-top: 1rem;
+    font-size: 2rem;
+    color: #ffd700;
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: #ffdd33;
 }
 
 .section {
-    margin-bottom: 40px;
+    margin: 1.5rem auto;
+    padding: 1rem;
+    width: 90%;
+    max-width: 640px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(5, 50px);
-    grid-template-rows: repeat(5, 50px);
-    gap: 2px;
-    margin: 20px 0;
-}
-
-.cell {
-    width: 50px;
-    height: 50px;
-    background-color: #222;
-    border: 1px solid #555;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: outline 0.3s;
-}
-
-.pacman {
-    background-color: yellow;
-}
-
-.wall {
-    background-color: gray;
-}
-
-.ghost {
-    background-color: red;
+.section p,
+.section ul,
+.section ol {
+    line-height: 1.5;
+    margin-left: 1rem;
 }
 
 button {
-    margin: 5px;
-    padding: 10px;
-    background: #FFD700;
+    background: #ffd700;
+    color: #111;
+    font-size: 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
     cursor: pointer;
+    margin: 0.25rem 0.5rem;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #ffcc00;
+}
+
+#moveStatus,
+#vectorChoice {
+    font-weight: bold;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.axis {
+    position: absolute;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.axis span {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+
+.axis.y {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    top: 180px; /* (40px Ã— 5 / 2) â€“ ajuste se o tamanho da grid mudar */
+    left: -40px;
+}
+
+.cell {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.cell.pacman::after,
+.cell.ghost::after {
+    font-size: 1.2rem;
 }
