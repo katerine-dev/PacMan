@@ -157,7 +157,7 @@
         Para as direções, utilizamos vetores e soma vetorial, representando cada
         direção (seta) com vetores unitários.
       </p>
-      <p></p>
+      <img src="./images/exemplosCodigo/exCodDir.jpeg" alt="exemplo direcao" />
       <div style="text-align: center">
         <button onclick="move(-1, 0)">↑</button>
         <button onclick="move(1, 0)">↓</button>
@@ -165,68 +165,29 @@
         <button onclick="move(0, 1)">→</button>
       </div>
       <p>
-        <em>Observação:</em> Ao clicar em uma das setas, somamos o vetor
-        <code>(dx, dy)</code> à posição atual, gerando
+        <em>Observação:</em> Para mover o personagem, basta somar esse vetor,
+        escalado pela velocidade, à posição atual - ao clicar em uma das setas,
+        somamos o vetor <code>(dx, dy)</code> à posição atual, gerando
         <code>[linha+dx, coluna+dy]</code>. Se a nova posição estiver dentro da
         matriz e não colidir com parede (valor 1 no mapa), o movimento é válido.
       </p>
+      <img src="./images/exemplosCodigo/exCodPosi.jpeg" alt="exemplo posicao" />
+      <p>
+        Para dar um charme, acrescentamos um detalhe: conforme o PacMan segue
+        uma direção, rotacionamos a imagem que o representa, utilizando as
+        funções translate e rotate, que move o sistema de coordenada para o
+        centro do pacman e rotaciona o canvas de acordo com o mesmo,
+        respectivamente, baseadas em conteitos matemáticos.
+      </p>
+      <img
+        src="./images/exemplosCodigo/translateRotate.jpg"
+        alt="exemplo posicao"
+      />
     </div>
 
     <!-- ────────────────────────────────────────────────────────────────────────────── -->
     <div class="section">
-      <h2>2. Detecção de Colisões</h2>
-      <p>Para saber se o Pac-Man pode andar para uma célula, verificamos:</p>
-      <ol>
-        <li>
-          Se a coordenada “linha” ou “coluna” resultante fica fora do intervalo
-          <code>0 ≤ linha, coluna &lt; 5</code>, então há colisão com a borda da
-          matriz.
-        </li>
-        <li>
-          Se a célula no <code>map[linha][coluna]</code> tiver valor
-          <code>1</code>, significa que há uma parede e, portanto, o Pac-Man não
-          passa.
-        </li>
-      </ol>
-      <p>
-        Status do último movimento:
-        <strong><span id="moveStatus">–</span></strong>
-      </p>
-      <p>
-        Quando há colisão, destacamos em vermelho a célula bloqueada e exibimos
-        uma mensagem. Caso contrário, atualizamos a posição do Pac-Man.
-      </p>
-    </div>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>3. Aleatoriedade do Fantasma (Vetores)</h2>
-      <p>
-        Cada fantasma escolhe uma entre quatro direções fixas:
-        <code
-          >{ dx: -1, dy: 0 }, { dx: 1, dy: 0 }, { dx: 0, dy: -1 }, { dx: 0, dy:
-          1 }</code
-        >. Esses pares <code>(dx,dy)</code> são vetores simples que indicam
-        “mover uma célula para cima”, “para baixo”, “para a esquerda” ou “para a
-        direita” na matriz.
-      </p>
-      <button onclick="moveGhost()">Mover Fantasma</button>
-      <p>
-        Fantasma na posição: <strong><span id="ghostPos">[2,2]</span></strong>
-      </p>
-      <p>Vetores possíveis: <code>(–1,0), (1,0), (0,–1), (0,1)</code></p>
-      <p id="vectorChoice">Último vetor escolhido: –</p>
-      <p>
-        <em>Explicação:</em> Toda vez que clicamos em “Mover Fantasma”, ele
-        randomicamente escolhe um vetor <code>(dx,dy)</code> e aplica na sua
-        coordenada atual. Se o destino estiver livre (valor 0 no mapa), o
-        fantasma se move; caso contrário, permanece onde está.
-      </p>
-    </div>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>4. Conceitos de Plano Cartesiano</h2>
+      <h2>2. Aplicando no Plano Cartesiano</h2>
       <p>
         No nosso labirinto, tratamos a linha como “Y” (vertical) e a coluna como
         “X” (horizontal). Assim:
@@ -254,6 +215,58 @@
         matriz, trocando <code>map[2][3]</code> para outro valor (por exemplo
         <code>-1</code> para indicar que já foi consumido). Se fosse uma parede
         (<code>map[2][3] === 1</code>), a colisão bloqueia o movimento.
+      </p>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────────────────────── -->
+    <div class="section">
+      <h2>3. Detecção de Colisões</h2>
+      <p>Para saber se o Pac-Man pode andar para uma célula, verificamos:</p>
+      <ol>
+        <li>
+          Se a coordenada “linha” ou “coluna” resultante fica fora do intervalo
+          <code>0 ≤ linha, coluna &lt; 5</code>, então há colisão com a borda da
+          matriz.
+        </li>
+        <li>
+          Se a célula no <code>map[linha][coluna]</code> tiver valor
+          <code>1</code>, significa que há uma parede e, portanto, o Pac-Man não
+          passa.
+        </li>
+      </ol>
+      <p>
+        Status do último movimento:
+        <strong><span id="moveStatus">–</span></strong>
+      </p>
+      <p>
+        Quando há colisão, destacamos em vermelho a célula bloqueada e exibimos
+        uma mensagem. Caso contrário, atualizamos a posição do Pac-Man.
+      </p>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────────────────────── -->
+    <div class="section">
+      <h2>4. Aleatoriedade do Fantasma (Vetores)</h2>
+      <p>
+        Cada fantasma escolhe uma entre quatro direções fixas:
+        <code
+          >{ dx: -1, dy: 0 }, { dx: 1, dy: 0 }, { dx: 0, dy: -1 }, { dx: 0, dy:
+          1 }</code
+        >. Esses pares <code>(dx,dy)</code> são vetores simples que indicam
+        “mover uma célula para cima”, “para baixo”, “para a esquerda” ou “para a
+        direita” na matriz.
+      </p>
+      <button onclick="moveGhost()">Mover Fantasma</button>
+      <p>
+        Fantasma na posição: <strong><span id="ghostPos">[2,2]</span></strong>
+      </p>
+      <p>Vetores possíveis: <code>(–1,0), (1,0), (0,–1), (0,1)</code></p>
+      <p id="vectorChoice">Último vetor escolhido: –</p>
+      <p>
+        <em>Explicação:</em> Toda vez que clicamos em “Mover Fantasma”, ele
+        randomicamente escolhe um vetor <code>(dx,dy)</code> e aplica na sua
+        coordenada atual. Se o destino estiver livre (valor 0 no mapa), o
+        fantasma se move; caso contrário, permanece onde está.
       </p>
     </div>
 

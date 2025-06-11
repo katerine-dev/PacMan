@@ -21,8 +21,8 @@ export default class Pacman {
     this.powerDotActive = false;
     this.powerDotAboutToExpire = false;
     this.timers = [];
-    
-    this.eatGhostSound = new Audio('./sounds/eat_ghost.wav');
+
+    this.eatGhostSound = new Audio("./sounds/eat_ghost.wav");
 
     this.madeFirstMove = false;
 
@@ -39,9 +39,9 @@ export default class Pacman {
   };
 
   draw(ctx, pause, enemies) {
-    if (!pause){
-    this.#move();
-    this.#animate();
+    if (!pause) {
+      this.#move();
+      this.#animate();
     }
     this.#eatDot();
     this.#eatPowerDot();
@@ -116,7 +116,6 @@ export default class Pacman {
   #move() {
     if (this.currentMovingDirection !== this.requestMovingDirection) {
       if (
-        // TODO: incluir uma explicação mais completa do funcionamento do movimento
         Number.isInteger(this.x / this.tileSize) &&
         Number.isInteger(this.y / this.tileSize)
       ) {
