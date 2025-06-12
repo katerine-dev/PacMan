@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Aprenda - Matemática no Pac-Man</title>
     <link rel="stylesheet" href="./styles/aprenda.css" />
-    <!-- Se quiser, inclua aqui ícones ou fontes adicionais -->
 
     <style>
       body {
@@ -29,17 +28,17 @@
       }
       .grid {
         display: grid;
-        grid-template-rows: repeat(5, 40px);
-        grid-template-columns: repeat(5, 40px);
-        gap: 2px;
+        grid-template-rows: repeat(5, 80px);
+        grid-template-columns: repeat(5, 80px);
+        gap: 4px;
         margin: 1rem auto;
         width: fit-content;
-        border: 2px solid #555;
+        border: 4px solid #555;
         position: relative;
       }
       .cell {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
         background: #222;
         display: flex;
         align-items: center;
@@ -62,7 +61,7 @@
       }
       .cell.pacman::after {
         content: "😃";
-        font-size: 1.2rem;
+        font-size: 2.5rem;
         position: absolute;
       }
       /* Fantasma */
@@ -71,7 +70,7 @@
       }
       .cell.ghost::after {
         content: "👻";
-        font-size: 1.2rem;
+        font-size: 2.5rem;
         position: absolute;
       }
       /* Destaque ao colidir */
@@ -127,165 +126,194 @@
       Ok! O jogo foi divertido, né? E se eu te contar que por trás de toda esta
       diversão existe matemática? Não acredita?! Então vou te provar!
     </h3>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>1. Movimento na Grade (Matriz)</h2>
-      <p>
-        Imagine que o labirinto do Pac-Man é modelado como uma matriz
-        bidimensional, para este exemplo, uma grade 5×5. Cada célula tem
-        coordenadas <code>[linha, coluna]</code>, onde “linha” é o eixo Y (de
-        cima para baixo) e “coluna” é o eixo X (da esquerda para a direita),
-        onde cada célula (tile) tem um valor indicando se é parede, corredor ou
-        ponto a ser consumido.
-      </p>
-      <!-- Eixos X (colunas) no topo -->
-      <div class="axis">
-        <!-- 5 colunas (0 a 4) -->
-        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+    <div style="display: flex; justify-content: center; gap: 40px">
+      <div class="sectionMap">
+        <!-- Eixos X (colunas) no topo -->
+        <div class="axis">
+          <!-- 5 colunas (0 a 4) -->
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+        </div>
+        <!-- Eixos Y (linhas) na lateral -->
+        <div class="axis y">
+          <!-- 5 linhas (0 a 4) -->
+          0
+        </div>
+        <div class="grid" id="grid"></div>
       </div>
-      <!-- Eixos Y (linhas) na lateral -->
-      <div class="axis y">
-        <!-- 5 linhas (0 a 4) -->
-        0
+      <div class="section">
+        <!-- ────────────────────────────────────────────────────────────────────────────── -->
+        <div>
+          <h2>1. Movimento na Grade (Matriz)</h2>
+          <p>
+            Imagine que o labirinto do Pac-Man é modelado como uma matriz
+            bidimensional, para este exemplo, uma grade 5×5. Cada célula tem
+            coordenadas <code>[linha, coluna]</code>, onde “linha” é o eixo Y
+            (de cima para baixo) e “coluna” é o eixo X (da esquerda para a
+            direita), onde cada célula (tile) tem um valor indicando se é
+            parede, corredor ou ponto a ser consumido.
+          </p>
+
+          <p>
+            Posição do Pac-Man:
+            <strong><span id="position">[0,0]</span></strong>
+          </p>
+          <p>
+            Para as direções, utilizamos vetores e soma vetorial, representando
+            cada direção (seta) com vetores unitários.
+          </p>
+          <img
+            src="./images/exemplosCodigo/exCodDir.jpeg"
+            alt="exemplo direcao"
+          />
+          <div style="text-align: center">
+            <button onclick="move(-1, 0)">↑</button>
+            <button onclick="move(1, 0)">↓</button>
+            <button onclick="move(0, -1)">←</button>
+            <button onclick="move(0, 1)">→</button>
+          </div>
+          <p>
+            <em>Observação:</em> Para mover o personagem, basta somar esse
+            vetor, escalado pela velocidade, à posição atual - ao clicar em uma
+            das setas, somamos o vetor <code>(dx, dy)</code> à posição atual,
+            gerando <code>[linha+dx, coluna+dy]</code>. Se a nova posição
+            estiver dentro da matriz e não colidir com parede (valor 1 no mapa),
+            o movimento é válido.
+          </p>
+          <img
+            src="./images/exemplosCodigo/exCodPosi.jpeg"
+            alt="exemplo posicao"
+          />
+          <p>
+            Para dar um charme, acrescentamos um detalhe: conforme o PacMan
+            segue uma direção, rotacionamos a imagem que o representa,
+            utilizando as funções translate e rotate, que move o sistema de
+            coordenada para o centro do pacman e rotaciona o canvas de acordo
+            com o mesmo, respectivamente, baseadas em conteitos matemáticos.
+          </p>
+          <img
+            src="./images/exemplosCodigo/translateRotate.jpg"
+            alt="exemplo translate e rotate"
+          />
+        </div>
+
+        <!-- ────────────────────────────────────────────────────────────────────────────── -->
+        <div>
+          <h2>2. Aplicando no Plano Cartesiano</h2>
+          <p>
+            No nosso labirinto, tratamos a linha como “Y” (vertical) e a coluna
+            como “X” (horizontal). Assim:
+          </p>
+          <ul>
+            <li>
+              Origem <code>[0,0]</code> fica no canto superior esquerdo da
+              grade.
+            </li>
+            <li>Ao aumentar “coluna” (X), o personagem vai para a direita.</li>
+            <li>Ao aumentar “linha” (Y), o personagem vai para baixo.</li>
+          </ul>
+          <p>
+            Por exemplo, a posição <code>[3,1]</code> significa “linha 3”
+            (quarto bloco de cima para baixo) e “coluna 1” (segundo bloco da
+            esquerda para a direita). Ao somar o vetor <code>(1, 0)</code> a
+            <code>[3,1]</code>, chega em <code>[4,1]</code> (um bloco para
+            baixo). Ao somar <code>(0, –1)</code> a <code>[3,1]</code>, chega em
+            <code>[3,0]</code> (um bloco para a esquerda).
+          </p>
+          <p>
+            <em>Como isso ajuda na detecção de colisões:</em> Se quisermos que o
+            Pac-Man coma uma “power pellet” na posição <code>[2,3]</code>, basta
+            verificar se, ao chegar lá, o valor em <code>map[2][3]</code> indica
+            “pellet” (neste exemplo, um 0 normal), e então “remover” esse item
+            da matriz, trocando <code>map[2][3]</code> para outro valor (por
+            exemplo <code>-1</code> para indicar que já foi consumido). Se fosse
+            uma parede (<code>map[2][3] === 1</code>), a colisão bloqueia o
+            movimento.
+          </p>
+        </div>
+
+        <!-- ────────────────────────────────────────────────────────────────────────────── -->
+        <div>
+          <h2>3. Detecção de Colisões</h2>
+          <p>
+            Para saber se o Pac-Man pode andar para uma célula, verificamos:
+          </p>
+          <ol>
+            <li>
+              Se a coordenada “linha” ou “coluna” resultante fica fora do
+              intervalo
+              <code>0 ≤ linha, coluna &lt; 5</code>, então há colisão com a
+              borda da matriz.
+            </li>
+            <li>
+              Se a célula no <code>map[linha][coluna]</code> tiver valor
+              <code>1</code>, significa que há uma parede e, portanto, o Pac-Man
+              não passa.
+            </li>
+          </ol>
+          <p>
+            Status do último movimento:
+            <strong><span id="moveStatus">–</span></strong>
+          </p>
+          <p>
+            Quando há colisão, destacamos em vermelho a célula bloqueada e
+            exibimos uma mensagem. Caso contrário, atualizamos a posição do
+            Pac-Man.
+          </p>
+        </div>
+
+        <!-- ────────────────────────────────────────────────────────────────────────────── -->
+        <div>
+          <h2>4. Aleatoriedade do Fantasma (Vetores)</h2>
+          <p>
+            Cada fantasma escolhe uma entre quatro direções fixas:
+            <code
+              >{ dx: -1, dy: 0 }, { dx: 1, dy: 0 }, { dx: 0, dy: -1 }, { dx: 0,
+              dy: 1 }</code
+            >. Esses pares <code>(dx,dy)</code> são vetores simples que indicam
+            “mover uma célula para cima”, “para baixo”, “para a esquerda” ou
+            “para a direita” na matriz.
+          </p>
+          <div style="display: flex; justify-content: center">
+            <button onclick="moveGhost()">Mover Fantasma</button>
+          </div>
+
+          <p>
+            Fantasma na posição:
+            <strong><span id="ghostPos">[2,2]</span></strong>
+          </p>
+          <p>Vetores possíveis: <code>(–1,0), (1,0), (0,–1), (0,1)</code></p>
+          <p id="vectorChoice">Último vetor escolhido: –</p>
+          <p>
+            <em>Explicação:</em> Toda vez que clicamos em “Mover Fantasma”, ele
+            randomicamente escolhe um vetor <code>(dx,dy)</code> e aplica na sua
+            coordenada atual. Se o destino estiver livre (valor 0 no mapa), o
+            fantasma se move; caso contrário, permanece onde está.
+          </p>
+        </div>
+
+        <!-- ────────────────────────────────────────────────────────────────────────────── -->
+        <div>
+          <h2>5. Interações e Animações Extras</h2>
+          <p>
+            1. Áreas em que o Pac-Man pode ou não se mover são destacadas ao
+            clicar em “↑ ↓ ← →”. 2. O fantasma muda de cor se estiver cercado
+            por paredes (exemplo visual de colisão). 3. Podemos mostrar as
+            coordenadas em cada célula para reforçar o conceito de “grade XY”.
+          </p>
+          <div style="display: flex; justify-content: center">
+            <button onclick="toggleShowCoords()">
+              Mostrar/Ocultar Coordenadas
+            </button>
+          </div>
+
+          <p>
+            <em
+              >Clique para ver em cada célula qual é o par
+              <code>[linha,coluna]</code>.</em
+            >
+          </p>
+        </div>
       </div>
-      <div class="grid" id="grid"></div>
-      <p>
-        Posição do Pac-Man: <strong><span id="position">[0,0]</span></strong>
-      </p>
-      <p>
-        Para as direções, utilizamos vetores e soma vetorial, representando cada
-        direção (seta) com vetores unitários.
-      </p>
-      <img src="./images/exemplosCodigo/exCodDir.jpeg" alt="exemplo direcao" />
-      <div style="text-align: center">
-        <button onclick="move(-1, 0)">↑</button>
-        <button onclick="move(1, 0)">↓</button>
-        <button onclick="move(0, -1)">←</button>
-        <button onclick="move(0, 1)">→</button>
-      </div>
-      <p>
-        <em>Observação:</em> Para mover o personagem, basta somar esse vetor,
-        escalado pela velocidade, à posição atual - ao clicar em uma das setas,
-        somamos o vetor <code>(dx, dy)</code> à posição atual, gerando
-        <code>[linha+dx, coluna+dy]</code>. Se a nova posição estiver dentro da
-        matriz e não colidir com parede (valor 1 no mapa), o movimento é válido.
-      </p>
-      <img src="./images/exemplosCodigo/exCodPosi.jpeg" alt="exemplo posicao" />
-      <p>
-        Para dar um charme, acrescentamos um detalhe: conforme o PacMan segue
-        uma direção, rotacionamos a imagem que o representa, utilizando as
-        funções translate e rotate, que move o sistema de coordenada para o
-        centro do pacman e rotaciona o canvas de acordo com o mesmo,
-        respectivamente, baseadas em conteitos matemáticos.
-      </p>
-      <img
-        src="./images/exemplosCodigo/translateRotate.jpg"
-        alt="exemplo posicao"
-      />
-    </div>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>2. Aplicando no Plano Cartesiano</h2>
-      <p>
-        No nosso labirinto, tratamos a linha como “Y” (vertical) e a coluna como
-        “X” (horizontal). Assim:
-      </p>
-      <ul>
-        <li>
-          Origem <code>[0,0]</code> fica no canto superior esquerdo da grade.
-        </li>
-        <li>Ao aumentar “coluna” (X), o personagem vai para a direita.</li>
-        <li>Ao aumentar “linha” (Y), o personagem vai para baixo.</li>
-      </ul>
-      <p>
-        Por exemplo, a posição <code>[3,1]</code> significa “linha 3” (quarto
-        bloco de cima para baixo) e “coluna 1” (segundo bloco da esquerda para a
-        direita). Ao somar o vetor <code>(1, 0)</code> a <code>[3,1]</code>,
-        chega em <code>[4,1]</code> (um bloco para baixo). Ao somar
-        <code>(0, –1)</code> a <code>[3,1]</code>, chega em
-        <code>[3,0]</code> (um bloco para a esquerda).
-      </p>
-      <p>
-        <em>Como isso ajuda na detecção de colisões:</em> Se quisermos que o
-        Pac-Man coma uma “power pellet” na posição <code>[2,3]</code>, basta
-        verificar se, ao chegar lá, o valor em <code>map[2][3]</code> indica
-        “pellet” (neste exemplo, um 0 normal), e então “remover” esse item da
-        matriz, trocando <code>map[2][3]</code> para outro valor (por exemplo
-        <code>-1</code> para indicar que já foi consumido). Se fosse uma parede
-        (<code>map[2][3] === 1</code>), a colisão bloqueia o movimento.
-      </p>
-    </div>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>3. Detecção de Colisões</h2>
-      <p>Para saber se o Pac-Man pode andar para uma célula, verificamos:</p>
-      <ol>
-        <li>
-          Se a coordenada “linha” ou “coluna” resultante fica fora do intervalo
-          <code>0 ≤ linha, coluna &lt; 5</code>, então há colisão com a borda da
-          matriz.
-        </li>
-        <li>
-          Se a célula no <code>map[linha][coluna]</code> tiver valor
-          <code>1</code>, significa que há uma parede e, portanto, o Pac-Man não
-          passa.
-        </li>
-      </ol>
-      <p>
-        Status do último movimento:
-        <strong><span id="moveStatus">–</span></strong>
-      </p>
-      <p>
-        Quando há colisão, destacamos em vermelho a célula bloqueada e exibimos
-        uma mensagem. Caso contrário, atualizamos a posição do Pac-Man.
-      </p>
-    </div>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>4. Aleatoriedade do Fantasma (Vetores)</h2>
-      <p>
-        Cada fantasma escolhe uma entre quatro direções fixas:
-        <code
-          >{ dx: -1, dy: 0 }, { dx: 1, dy: 0 }, { dx: 0, dy: -1 }, { dx: 0, dy:
-          1 }</code
-        >. Esses pares <code>(dx,dy)</code> são vetores simples que indicam
-        “mover uma célula para cima”, “para baixo”, “para a esquerda” ou “para a
-        direita” na matriz.
-      </p>
-      <button onclick="moveGhost()">Mover Fantasma</button>
-      <p>
-        Fantasma na posição: <strong><span id="ghostPos">[2,2]</span></strong>
-      </p>
-      <p>Vetores possíveis: <code>(–1,0), (1,0), (0,–1), (0,1)</code></p>
-      <p id="vectorChoice">Último vetor escolhido: –</p>
-      <p>
-        <em>Explicação:</em> Toda vez que clicamos em “Mover Fantasma”, ele
-        randomicamente escolhe um vetor <code>(dx,dy)</code> e aplica na sua
-        coordenada atual. Se o destino estiver livre (valor 0 no mapa), o
-        fantasma se move; caso contrário, permanece onde está.
-      </p>
-    </div>
-
-    <!-- ────────────────────────────────────────────────────────────────────────────── -->
-    <div class="section">
-      <h2>5. Interações e Animações Extras</h2>
-      <p>
-        1. Áreas em que o Pac-Man pode ou não se mover são destacadas ao clicar
-        em “↑ ↓ ← →”. 2. O fantasma muda de cor se estiver cercado por paredes
-        (exemplo visual de colisão). 3. Podemos mostrar as coordenadas em cada
-        célula para reforçar o conceito de “grade XY”.
-      </p>
-      <button onclick="toggleShowCoords()">Mostrar/Ocultar Coordenadas</button>
-      <p>
-        <em
-          >Clique para ver em cada célula qual é o par
-          <code>[linha,coluna]</code>.</em
-        >
-      </p>
     </div>
 
     <a href="index.html"><button>← Voltar ao Jogo</button></a>
