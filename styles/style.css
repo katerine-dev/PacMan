@@ -50,7 +50,7 @@ header h1 {
 
 @font-face {
     font-family: 'PacFont';
-    src: url('../styles/fonts/PAC-FONT.TTF') format('truetype');
+    src: url('PAC-FONT.TTF') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
